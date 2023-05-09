@@ -3,7 +3,8 @@ package com.example.aswitch
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.naver.maps.map.MapView
+import com.naver.maps.map.MapFragment
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -11,7 +12,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val mapView = findViewById<MapView>(R.id.map_view)
-        mapView.onCreate(savedInstanceState)
+        val fm = supportFragmentManager
+        val mapFragment = fm.findFragmentById(R.id.map) as MapFragment?
+            ?: MapFragment.newInstance().also {
+                fm.beginTransaction().add(R.id.map, it).commit()
+            }
     }
 }
